@@ -15,6 +15,6 @@ async function bootstrap() {
    // set ejs as the view engine
    app.set('view engine', 'ejs');
 
-  await app.listen(3000);
+  await app.listen(7000);
 }
 bootstrap();

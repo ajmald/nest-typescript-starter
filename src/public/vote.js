@@ -1,7 +1,7 @@
 
 const app = {
     sendToServer(id){
-        let baseURL = 'http://localhost:3000';
+        let baseURL = 'http://localhost:7000';
         axios.post(`${baseURL}/vote`, {id})
         .then( response => console.log('Successful'));
     },
@@ -19,10 +19,11 @@ const app = {
 window.addEventListener('load', () => app.start());
 
 let dataPoints = [
-    {label: 'Infinix', y:0},
-    {label: 'Nokia', y:0},
-    {label: 'Samsung', y:0},
-    {label: 'Techno', y:0}
+    {label: 'Very Bad/Très Mauvais', y:0},
+    {label: 'Bad/Mauvais', y:0},
+    {label: 'Neutral/Neutre', y:0},
+    {label: 'Good/Bien', y:0},
+    {label: 'Very Good/Très bien', y:0}
 ]
 
 const chartContainer = document.querySelector('#vote-chart-container');
@@ -32,7 +33,7 @@ if (chartContainer) {
         animationEnabled: true,
         theme: 'theme1',
         title: {
-            text: 'Favorite device'
+            text: 'Results/Résultats'
         },
         data: [
             {
@@ -45,14 +46,19 @@ if (chartContainer) {
     chart.render();
     
     // Pusher
-    var pusher = new Pusher('YOUR_API_KEY', {
-        cluster: 'CLUSTER',
+    var pusher = new Pusher('ef30bda08faa7a6c4a6e', {
+        cluster: 'ap2',
         encrypted: true
     });
     
     var channel = pusher.subscribe('poll');
     channel.bind('vote', (data) => {
         dataPoints = dataPoints.map(x => {
+            if(x.label ==='Very Bad/Très Mauvais') x.label ='verybad';
+            if(x.label ==='Bad/Mauvais') x.label ='bad';
+            if(x.label ==='Neutral/Neutre') x.label ='neutral';
+            if(x.label ==='Good/Bien') x.label ='good';
+            if(x.label ==='Very Good/Très bien') x.label ='verygood';
             if (x.label == data.phone.id) {
                 x.y += data.points;
                 return x;

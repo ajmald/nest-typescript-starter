@@ -7,10 +7,10 @@ export class VoteService {
         const Pusher = require('pusher');
 
         var pusher = new Pusher({
-            appId: 'APP_ID',
-            key: 'YOUR_API_KEY',
-            secret: 'YOUR_SECRET_KEY',
-            cluster: 'CLUSTER',
+            appId: '973134',
+            key: 'ef30bda08faa7a6c4a6e',
+            secret: 'd7817119f238769a4395',
+            cluster: 'ap2',
             encrypted: true
           });
 
